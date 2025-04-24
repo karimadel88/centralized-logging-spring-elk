@@ -1,4 +1,4 @@
-# 📜 Centralized Logging for Spring Boot with ELK Stack  
+# Centralized Logging for Spring Boot with ELK Stack  
 **A production-ready logging solution** for Spring Boot apps, featuring **Elasticsearch, Logstash, Kibana (ELK)** for scalable log aggregation, tracing, and visualization.  
 
 ---
