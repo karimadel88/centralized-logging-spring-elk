@@ -1,0 +1,50 @@
+2025-04-25 01:40:52.097 INFO  [,] [unknown,dev] [main] com.example.demo.DemoApplication - Starting DemoApplication using Java 22.0.2 with PID 23304 (D:\fawryProjects\demo\target\classes started by Karim.Adel in D:\fawryProjects\demo)
+2025-04-25 01:40:52.099 INFO  [,] [unknown,dev] [main] com.example.demo.DemoApplication - No active profile set, falling back to 1 default profile: "default"
+2025-04-25 01:40:53.550 ERROR [,] [unknown,dev] [main] o.s.b.w.e.tomcat.TomcatStarter - Error starting Tomcat context. Exception: org.springframework.beans.factory.UnsatisfiedDependencyException. Message: Error creating bean with name 'webMvcObservationFilter' defined in class path resource [org/springframework/boot/actuate/autoconfigure/observation/web/servlet/WebMvcObservationAutoConfiguration.class]: Unsatisfied dependency expressed through method 'webMvcObservationFilter' parameter 0: Error creating bean with name 'observationRegistry' defined in class path resource [org/springframework/boot/actuate/autoconfigure/observation/ObservationAutoConfiguration.class]: Error creating bean with name 'defaultTracingObservationHandler' defined in class path resource [org/springframework/boot/actuate/autoconfigure/tracing/MicrometerTracingAutoConfiguration.class]: Unsatisfied dependency expressed through method 'defaultTracingObservationHandler' parameter 0: Error creating bean with name 'braveTracerBridge' defined in class path resource [org/springframework/boot/actuate/autoconfigure/tracing/BraveAutoConfiguration.class]: Unsatisfied dependency expressed through method 'braveTracerBridge' parameter 0: Error creating bean with name 'braveTracer' defined in class path resource [org/springframework/boot/actuate/autoconfigure/tracing/BraveAutoConfiguration.class]: Unsatisfied dependency expressed through method 'braveTracer' parameter 0: Error creating bean with name 'braveTracing' defined in class path resource [org/springframework/boot/actuate/autoconfigure/tracing/BraveAutoConfiguration.class]: Unsatisfied dependency expressed through method 'braveTracing' parameter 4: Error creating bean with name 'propagationFactory' defined in class path resource [org/springframework/boot/actuate/autoconfigure/tracing/BravePropagationConfigurations$PropagationWithBaggage.class]: Unsatisfied dependency expressed through method 'propagationFactory' parameter 0: Error creating bean with name 'propagationFactoryBuilder' defined in class path resource [org/springframework/boot/actuate/autoconfigure/tracing/BravePropagationConfigurations$PropagationWithBaggage.class]: Failed to instantiate [brave.baggage.BaggagePropagation$FactoryBuilder]: Factory method 'propagationFactoryBuilder' threw exception with message: 'void io.micrometer.tracing.brave.bridge.BraveBaggageManager.<init>(java.util.List, java.util.List)'
+2025-04-25 01:40:53.588 WARN  [,] [unknown,dev] [main] o.s.b.w.s.c.AnnotationConfigServletWebServerApplicationContext - Exception encountered during context initialization - cancelling refresh attempt: org.springframework.context.ApplicationContextException: Unable to start web server
+2025-04-25 01:40:53.614 ERROR [,] [unknown,dev] [main] o.s.b.d.LoggingFailureAnalysisReporter - 
+
+***************************
+APPLICATION FAILED TO START
+***************************
+
+Description:
+
+An attempt was made to call a method that does not exist. The attempt was made from the following location:
+
+    org.springframework.boot.actuate.autoconfigure.tracing.BravePropagationConfigurations$PropagationWithBaggage.propagationFactoryBuilder(BravePropagationConfigurations.java:95)
+
+The following method did not exist:
+
+    'void io.micrometer.tracing.brave.bridge.BraveBaggageManager.<init>(java.util.List, java.util.List)'
+
+The calling method's class, org.springframework.boot.actuate.autoconfigure.tracing.BravePropagationConfigurations$PropagationWithBaggage, was loaded from the following location:
+
+    jar:file:/C:/Users/karim.adel/.m2/repository/org/springframework/boot/spring-boot-actuator-autoconfigure/3.4.5/spring-boot-actuator-autoconfigure-3.4.5.jar!/org/springframework/boot/actuate/autoconfigure/tracing/BravePropagationConfigurations$PropagationWithBaggage.class
+
+The called method's class, io.micrometer.tracing.brave.bridge.BraveBaggageManager, is available from the following locations:
+
+    jar:file:/C:/Users/karim.adel/.m2/repository/io/micrometer/micrometer-tracing-bridge-brave/1.2.0/micrometer-tracing-bridge-brave-1.2.0.jar!/io/micrometer/tracing/brave/bridge/BraveBaggageManager.class
+
+The called method's class hierarchy was loaded from the following locations:
+
+    io.micrometer.tracing.brave.bridge.BraveBaggageManager: file:/C:/Users/karim.adel/.m2/repository/io/micrometer/micrometer-tracing-bridge-brave/1.2.0/micrometer-tracing-bridge-brave-1.2.0.jar
+
+
+Action:
+
+Correct the classpath of your application so that it contains compatible versions of the classes org.springframework.boot.actuate.autoconfigure.tracing.BravePropagationConfigurations$PropagationWithBaggage and io.micrometer.tracing.brave.bridge.BraveBaggageManager
+
+2025-04-25 01:43:42.119 INFO  [,] [unknown,dev] [main] com.example.demo.DemoApplication - Starting DemoApplication using Java 22.0.2 with PID 16920 (D:\fawryProjects\demo\target\classes started by Karim.Adel in D:\fawryProjects\demo)
+2025-04-25 01:43:42.121 INFO  [,] [unknown,dev] [main] com.example.demo.DemoApplication - No active profile set, falling back to 1 default profile: "default"
+2025-04-25 01:43:44.085 INFO  [,] [unknown,dev] [main] com.example.demo.DemoApplication - Started DemoApplication in 2.74 seconds (process running for 3.492)
+2025-04-25 01:43:44.092 INFO  [,] [unknown,dev] [main] com.example.demo.DemoApplication - Application started successfully
+2025-04-25 01:45:15.089 INFO  [680abefbd96b8f9683aaccf6a3c59950,83aaccf6a3c59950] [unknown,dev] [http-nio-8080-exec-2] com.example.demo.TestController - Received request to /test endpoint with fail=false
+2025-04-25 01:45:15.091 INFO  [680abefbd96b8f9683aaccf6a3c59950,83aaccf6a3c59950] [unknown,dev] [http-nio-8080-exec-2] com.example.demo.TestService - Performing test
+2025-04-25 01:45:15.092 INFO  [680abefbd96b8f9683aaccf6a3c59950,83aaccf6a3c59950] [unknown,dev] [http-nio-8080-exec-2] com.example.demo.TestService - Test performed successfully
+2025-04-25 01:45:35.800 INFO  [680abf0fbbacc416f21f3ec6d7486a73,f21f3ec6d7486a73] [unknown,dev] [http-nio-8080-exec-3] com.example.demo.TestController - Received request to /test endpoint with fail=false
+2025-04-25 01:45:35.800 INFO  [680abf0fbbacc416f21f3ec6d7486a73,f21f3ec6d7486a73] [unknown,dev] [http-nio-8080-exec-3] com.example.demo.TestService - Performing test
+2025-04-25 01:45:35.801 INFO  [680abf0fbbacc416f21f3ec6d7486a73,f21f3ec6d7486a73] [unknown,dev] [http-nio-8080-exec-3] com.example.demo.TestService - Test performed successfully
+2025-04-25 02:04:40.643 INFO  [680ac388284bf82116f5b1c4bf0e2588,16f5b1c4bf0e2588] [unknown,dev] [http-nio-8080-exec-6] com.example.demo.TestController - Received request to /test endpoint with fail=false
+2025-04-25 02:04:40.645 INFO  [680ac388284bf82116f5b1c4bf0e2588,16f5b1c4bf0e2588] [unknown,dev] [http-nio-8080-exec-6] com.example.demo.TestService - Performing test
+2025-04-25 02:04:40.645 INFO  [680ac388284bf82116f5b1c4bf0e2588,16f5b1c4bf0e2588] [unknown,dev] [http-nio-8080-exec-6] com.example.demo.TestService - Test performed successfully

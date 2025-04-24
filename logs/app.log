@@ -1,0 +1,82 @@
+01:19:50.322 [main] INFO  com.example.demo.DemoApplication - Starting DemoApplication using Java 22.0.2 with PID 33528 (D:\fawryProjects\demo\target\classes started by Karim.Adel in D:\fawryProjects\demo)
+01:19:50.325 [main] INFO  com.example.demo.DemoApplication - No active profile set, falling back to 1 default profile: "default"
+01:19:51.101 [main] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat initialized with port 8080 (http)
+01:19:51.113 [main] INFO  o.a.coyote.http11.Http11NioProtocol - Initializing ProtocolHandler ["http-nio-8080"]
+01:19:51.115 [main] INFO  o.a.catalina.core.StandardService - Starting service [Tomcat]
+01:19:51.116 [main] INFO  o.a.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/10.1.40]
+01:19:51.178 [main] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring embedded WebApplicationContext
+01:19:51.178 [main] INFO  o.s.b.w.s.c.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 796 ms
+01:19:51.424 [main] WARN  o.s.b.w.s.c.AnnotationConfigServletWebServerApplicationContext - Exception encountered during context initialization - cancelling refresh attempt: org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'requestMappingHandlerMapping' defined in class path resource [org/springframework/boot/autoconfigure/web/servlet/WebMvcAutoConfiguration$EnableWebMvcConfiguration.class]: Ambiguous mapping. Cannot map 'testController' method 
+com.example.demo.TestController#testEndpoint(boolean)
+to {GET [/test]}: There is already 'demoApplication' bean method
+com.example.demo.DemoApplication#testEndpoint() mapped.
+01:19:51.427 [main] INFO  o.a.catalina.core.StandardService - Stopping service [Tomcat]
+01:19:51.443 [main] INFO  o.s.b.a.l.ConditionEvaluationReportLogger - 
+
+Error starting ApplicationContext. To display the condition evaluation report re-run your application with 'debug' enabled.
+01:19:51.467 [main] ERROR o.s.boot.SpringApplication - Application run failed
+org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'requestMappingHandlerMapping' defined in class path resource [org/springframework/boot/autoconfigure/web/servlet/WebMvcAutoConfiguration$EnableWebMvcConfiguration.class]: Ambiguous mapping. Cannot map 'testController' method 
+com.example.demo.TestController#testEndpoint(boolean)
+to {GET [/test]}: There is already 'demoApplication' bean method
+com.example.demo.DemoApplication#testEndpoint() mapped.
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.initializeBean(AbstractAutowireCapableBeanFactory.java:1818)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:607)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:529)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.lambda$doGetBean$0(AbstractBeanFactory.java:339)
+	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:371)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:337)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:202)
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.instantiateSingleton(DefaultListableBeanFactory.java:1221)
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.preInstantiateSingleton(DefaultListableBeanFactory.java:1187)
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.preInstantiateSingletons(DefaultListableBeanFactory.java:1122)
+	at org.springframework.context.support.AbstractApplicationContext.finishBeanFactoryInitialization(AbstractApplicationContext.java:987)
+	at org.springframework.context.support.AbstractApplicationContext.refresh(AbstractApplicationContext.java:627)
+	at org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext.refresh(ServletWebServerApplicationContext.java:146)
+	at org.springframework.boot.SpringApplication.refresh(SpringApplication.java:753)
+	at org.springframework.boot.SpringApplication.refreshContext(SpringApplication.java:439)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:318)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1362)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1351)
+	at com.example.demo.DemoApplication.main(DemoApplication.java:17)
+Caused by: java.lang.IllegalStateException: Ambiguous mapping. Cannot map 'testController' method 
+com.example.demo.TestController#testEndpoint(boolean)
+to {GET [/test]}: There is already 'demoApplication' bean method
+com.example.demo.DemoApplication#testEndpoint() mapped.
+	at org.springframework.web.servlet.handler.AbstractHandlerMethodMapping$MappingRegistry.validateMethodMapping(AbstractHandlerMethodMapping.java:676)
+	at org.springframework.web.servlet.handler.AbstractHandlerMethodMapping$MappingRegistry.register(AbstractHandlerMethodMapping.java:637)
+	at org.springframework.web.servlet.handler.AbstractHandlerMethodMapping.registerHandlerMethod(AbstractHandlerMethodMapping.java:331)
+	at org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping.registerHandlerMethod(RequestMappingHandlerMapping.java:507)
+	at org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping.registerHandlerMethod(RequestMappingHandlerMapping.java:84)
+	at org.springframework.web.servlet.handler.AbstractHandlerMethodMapping.lambda$detectHandlerMethods$2(AbstractHandlerMethodMapping.java:298)
+	at java.base/java.util.LinkedHashMap.forEach(LinkedHashMap.java:986)
+	at org.springframework.web.servlet.handler.AbstractHandlerMethodMapping.detectHandlerMethods(AbstractHandlerMethodMapping.java:296)
+	at org.springframework.web.servlet.handler.AbstractHandlerMethodMapping.processCandidateBean(AbstractHandlerMethodMapping.java:265)
+	at org.springframework.web.servlet.handler.AbstractHandlerMethodMapping.initHandlerMethods(AbstractHandlerMethodMapping.java:224)
+	at org.springframework.web.servlet.handler.AbstractHandlerMethodMapping.afterPropertiesSet(AbstractHandlerMethodMapping.java:212)
+	at org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping.afterPropertiesSet(RequestMappingHandlerMapping.java:237)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.invokeInitMethods(AbstractAutowireCapableBeanFactory.java:1865)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.initializeBean(AbstractAutowireCapableBeanFactory.java:1814)
+	... 18 common frames omitted
+01:20:56.442 [main] INFO  com.example.demo.DemoApplication [] - Starting DemoApplication using Java 22.0.2 with PID 19316 (D:\fawryProjects\demo\target\classes started by Karim.Adel in D:\fawryProjects\demo)
+01:20:56.445 [main] INFO  com.example.demo.DemoApplication [] - No active profile set, falling back to 1 default profile: "default"
+01:20:57.184 [main] INFO  o.s.b.w.e.tomcat.TomcatWebServer [] - Tomcat initialized with port 8080 (http)
+01:20:57.193 [main] INFO  o.a.coyote.http11.Http11NioProtocol [] - Initializing ProtocolHandler ["http-nio-8080"]
+01:20:57.196 [main] INFO  o.a.catalina.core.StandardService [] - Starting service [Tomcat]
+01:20:57.196 [main] INFO  o.a.catalina.core.StandardEngine [] - Starting Servlet engine: [Apache Tomcat/10.1.40]
+01:20:57.241 [main] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] [] - Initializing Spring embedded WebApplicationContext
+01:20:57.241 [main] INFO  o.s.b.w.s.c.ServletWebServerApplicationContext [] - Root WebApplicationContext: initialization completed in 757 ms
+01:20:57.544 [main] INFO  o.a.coyote.http11.Http11NioProtocol [] - Starting ProtocolHandler ["http-nio-8080"]
+01:20:57.591 [main] INFO  o.s.b.w.e.tomcat.TomcatWebServer [] - Tomcat started on port 8080 (http) with context path '/'
+01:20:57.597 [main] INFO  com.example.demo.DemoApplication [] - Started DemoApplication in 1.792 seconds (process running for 2.703)
+01:20:57.600 [main] INFO  com.example.demo.DemoApplication [] - Application started successfully
+01:21:47.537 [http-nio-8080-exec-1] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] [] - Initializing Spring DispatcherServlet 'dispatcherServlet'
+01:21:47.538 [http-nio-8080-exec-1] INFO  o.s.web.servlet.DispatcherServlet [] - Initializing Servlet 'dispatcherServlet'
+01:21:47.540 [http-nio-8080-exec-1] INFO  o.s.web.servlet.DispatcherServlet [] - Completed initialization in 1 ms
+01:21:47.590 [http-nio-8080-exec-1] INFO  com.example.demo.TestController [536a76e3-324e-480c-854a-7cbbb4ff4507] - Received request to /test endpoint with fail=false
+01:21:47.592 [http-nio-8080-exec-1] INFO  com.example.demo.TestService [536a76e3-324e-480c-854a-7cbbb4ff4507] - Performing test
+01:21:47.593 [http-nio-8080-exec-1] INFO  com.example.demo.TestService [536a76e3-324e-480c-854a-7cbbb4ff4507] - Test performed successfully
+01:27:37.662 [http-nio-8080-exec-5] INFO  com.example.demo.TestController [3615b66a-8bdc-4dc2-9d46-c84fe4561612] - Received request to /test endpoint with fail=false
+01:27:37.664 [http-nio-8080-exec-5] INFO  com.example.demo.TestService [3615b66a-8bdc-4dc2-9d46-c84fe4561612] - Performing test
+01:27:37.664 [http-nio-8080-exec-5] INFO  com.example.demo.TestService [3615b66a-8bdc-4dc2-9d46-c84fe4561612] - Test performed successfully
+01:34:30.835 [SpringApplicationShutdownHook] INFO  o.s.b.w.e.tomcat.GracefulShutdown [] - Commencing graceful shutdown. Waiting for active requests to complete
+01:34:30.880 [tomcat-shutdown] INFO  o.s.b.w.e.tomcat.GracefulShutdown [] - Graceful shutdown complete

@@ -1,0 +1,30 @@
+version: '3'
+services:
+  elk:
+    image: sebp/elk:761
+    ports:
+      - "5601:5601"  # Kibana
+      - "9200:9200"  # Elasticsearch
+      - "5044:5044"  # Logstash Beats
+      - "5045:5045"  # Logstash TCP
+    volumes:
+      - elk_data:/var/lib/elasticsearch
+      - ./02-beats-input.conf:/etc/logstash/conf.d/02-beats-input.conf
+    environment:
+      - "ES_JAVA_OPTS=-Xms512m -Xmx512m"  # Adjust memory settings as needed
+      - "LS_JAVA_OPTS=-Xms256m -Xmx256m"  # Adjust memory settings as needed
+    networks:
+      - elk-network
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:9200"]
+      interval: 30s
+      timeout: 10s
+      retries: 5
+
+volumes:
+  elk_data:
+    driver: local
+
+networks:
+  elk-network:
+    driver: bridge

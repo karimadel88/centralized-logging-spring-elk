@@ -1,0 +1,163 @@
+<configuration>
+    <!-- Properties for centralized configuration -->
+    <springProperty scope="context" name="APP_NAME" source="spring.application.name"/>
+    <springProperty scope="context" name="APP_ENV" source="spring.profiles.active"/>
+
+    <property name="LOG_PATH" value="${LOG_PATH:-${java.io.tmpdir}/logs}" />
+    <property name="LOG_ARCHIVE" value="${LOG_ARCHIVE:-${LOG_PATH}/archive}" />
+    <property name="LOG_FILE_NAME" value="${LOG_FILE_NAME:-${APP_NAME}}" />
+    <property name="LOG_PURGE_POLICY" value="${LOG_PURGE_POLICY:-180}" />
+
+    <property name="LOGSTASH_HOST" value="${LOGSTASH_HOST:-localhost}" />
+    <property name="LOGSTASH_PORT" value="${LOGSTASH_PORT:-5045}" />
+
+    <configuration>
+        <!-- Properties for centralized configuration -->
+        <springProperty scope="context" name="APP_NAME" source="spring.application.name"/>
+        <springProperty scope="context" name="APP_ENV" source="spring.profiles.active"/>
+
+        <property name="LOG_PATH" value="${LOG_PATH:-${java.io.tmpdir}/logs}" />
+        <property name="LOG_ARCHIVE" value="${LOG_ARCHIVE:-${LOG_PATH}/archive}" />
+        <property name="LOG_FILE_NAME" value="${LOG_FILE_NAME:-${APP_NAME}}" />
+        <property name="LOG_PURGE_POLICY" value="${LOG_PURGE_POLICY:-180}" />
+
+        <property name="LOGSTASH_HOST" value="${LOGSTASH_HOST:-localhost}" />
+        <property name="LOGSTASH_PORT" value="${LOGSTASH_PORT:-5045}" />
+
+
+        <!-- Common encoder pattern with enhanced information - updated to include TRACE -->
+        <property name="CONSOLE_LOG_PATTERN"
+                  value="%d{yyyy-MM-dd HH:mm:ss.SSS} %highlight(%-5level) [%X{traceId:-},%X{spanId:-}] [${APP_NAME},%X{env:-${APP_ENV}}] [%thread] %logger{36} - %msg%n" />
+        <property name="FILE_LOG_PATTERN"
+                  value="%d{yyyy-MM-dd HH:mm:ss.SSS} %-5level [%X{traceId:-},%X{spanId:-}] [${APP_NAME},%X{env:-${APP_ENV}}] [%thread] %logger{36} - %msg%n" />
+
+        <!-- Console Appender with colors for development -->
+        <appender name="CONSOLE" class="ch.qos.logback.core.ConsoleAppender">
+            <encoder>
+                <pattern>${CONSOLE_LOG_PATTERN}</pattern>
+            </encoder>
+        </appender>
+
+        <!-- File Appender with size and time-based rolling -->
+        <appender name="FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
+            <file>${LOG_PATH}/${LOG_FILE_NAME}.log</file>
+            <rollingPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
+                <fileNamePattern>${LOG_ARCHIVE}/${LOG_FILE_NAME}-%d{yyyy-MM-dd}-%i.log.gz</fileNamePattern>
+                <maxFileSize>100MB</maxFileSize>
+                <maxHistory>30</maxHistory>
+                <totalSizeCap>5GB</totalSizeCap>
+            </rollingPolicy>
+            <encoder>
+                <pattern>${FILE_LOG_PATTERN}</pattern>
+            </encoder>
+        </appender>
+
+        <!-- Logstash Appender with reconnection strategy -->
+        <appender name="LOGSTASH" class="net.logstash.logback.appender.LogstashTcpSocketAppender">
+            <destination>${LOGSTASH_HOST}:${LOGSTASH_PORT}</destination>
+            <keepAliveDuration>5 minutes</keepAliveDuration>
+            <reconnectionDelay>30 seconds</reconnectionDelay>
+            <connectionStrategy>
+                <roundRobin>
+                    <connectionTTL>5 minutes</connectionTTL>
+                </roundRobin>
+            </connectionStrategy>
+            <encoder class="net.logstash.logback.encoder.LogstashEncoder">
+                <includeMdcKeyName>traceId</includeMdcKeyName>
+                <includeMdcKeyName>spanId</includeMdcKeyName>
+                <customFields>{"application":"${APP_NAME}","environment":"${APP_ENV}"}</customFields>
+            </encoder>
+        </appender>
+
+        <!-- Async Appender for Logstash with buffer optimization -->
+        <appender name="ASYNC_LOGSTASH" class="ch.qos.logback.classic.AsyncAppender">
+            <appender-ref ref="LOGSTASH"/>
+            <queueSize>256</queueSize>
+            <discardingThreshold>0</discardingThreshold>
+            <includeCallerData>false</includeCallerData>
+            <neverBlock>true</neverBlock>
+        </appender>
+
+        <!-- Framework logging configuration -->
+        <logger name="org.springframework" level="WARN"/>
+        <logger name="org.hibernate" level="WARN"/>
+        <logger name="org.apache" level="WARN"/>
+
+        <logger name="com.example" level="INFO"/>
+
+        <logger name="com.example.debug" level="TRACE"/>
+
+        <root level="INFO">
+            <appender-ref ref="CONSOLE"/>
+            <appender-ref ref="FILE"/>
+            <appender-ref ref="ASYNC_LOGSTASH"/>
+        </root>
+    </configuration>
+    <!-- Common encoder pattern with enhanced information -->
+    <property name="CONSOLE_LOG_PATTERN"
+              value="%d{yyyy-MM-dd HH:mm:ss.SSS} %highlight(%-5level) [%X{traceId:-},%X{spanId:-}] [${APP_NAME},%X{env:-${APP_ENV}}] [%thread] %logger{36} - %msg%n" />
+    <property name="FILE_LOG_PATTERN"
+              value="%d{yyyy-MM-dd HH:mm:ss.SSS} %-5level [%X{traceId:-},%X{spanId:-}] [${APP_NAME},%X{env:-${APP_ENV}}] [%thread] %logger{36} - %msg%n" />
+
+    <!-- Console Appender with colors for development -->
+    <appender name="CONSOLE" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder>
+            <pattern>${CONSOLE_LOG_PATTERN}</pattern>
+        </encoder>
+    </appender>
+
+    <!-- File Appender with size and time-based rolling -->
+    <appender name="FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>${LOG_PATH}/${LOG_FILE_NAME}.log</file>
+        <rollingPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
+            <fileNamePattern>${LOG_ARCHIVE}/${LOG_FILE_NAME}-%d{yyyy-MM-dd}-%i.log.gz</fileNamePattern>
+            <maxFileSize>100MB</maxFileSize>
+            <maxHistory>30</maxHistory>
+            <totalSizeCap>5GB</totalSizeCap>
+        </rollingPolicy>
+        <encoder>
+            <pattern>${FILE_LOG_PATTERN}</pattern>
+        </encoder>
+    </appender>
+
+    <!-- Logstash Appender with reconnection strategy -->
+    <appender name="LOGSTASH" class="net.logstash.logback.appender.LogstashTcpSocketAppender">
+        <destination>${LOGSTASH_HOST}:${LOGSTASH_PORT}</destination>
+        <keepAliveDuration>5 minutes</keepAliveDuration>
+        <reconnectionDelay>30 seconds</reconnectionDelay>
+        <connectionStrategy>
+            <roundRobin>
+                <connectionTTL>5 minutes</connectionTTL>
+            </roundRobin>
+        </connectionStrategy>
+        <encoder class="net.logstash.logback.encoder.LogstashEncoder">
+            <includeMdcKeyName>traceId</includeMdcKeyName>
+            <includeMdcKeyName>spanId</includeMdcKeyName>
+            <customFields>{"application":"${APP_NAME}","environment":"${APP_ENV}"}</customFields>
+        </encoder>
+    </appender>
+
+    <!-- Async Appender for Logstash with buffer optimization -->
+    <appender name="ASYNC_LOGSTASH" class="ch.qos.logback.classic.AsyncAppender">
+        <appender-ref ref="LOGSTASH"/>
+        <queueSize>256</queueSize>
+        <discardingThreshold>0</discardingThreshold>
+        <includeCallerData>false</includeCallerData>
+        <neverBlock>true</neverBlock>
+    </appender>
+
+    <!-- Framework logging configuration -->
+    <logger name="org.springframework" level="WARN"/>
+    <logger name="org.hibernate" level="WARN"/>
+    <logger name="org.apache" level="WARN"/>
+
+    <!-- Application logging -->
+    <logger name="com.example" level="INFO"/>
+
+    <!-- Root Logger -->
+    <root level="INFO">
+        <appender-ref ref="CONSOLE"/>
+        <appender-ref ref="FILE"/>
+        <appender-ref ref="ASYNC_LOGSTASH"/>
+    </root>
+</configuration>
